@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => MyAppState(),
       child: MaterialApp(
-        title: 'Namer App',
+        title: 'My Favourite Names App',
         theme: ThemeData(
           useMaterial3: true,
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepOrange),
@@ -27,6 +27,12 @@ class MyApp extends StatelessWidget {
 
 class MyAppState extends ChangeNotifier {
   var current = WordPair.random();
+
+  void getNext() {
+    current = WordPair.random();
+    print("Get next got gotted");
+    notifyListeners();
+  }
 }
 
 class MyHomePage extends StatelessWidget {
@@ -37,8 +43,14 @@ class MyHomePage extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-          Text('A random idea:'),
+          Text('An random idea:'),
           Text(appState.current.asLowerCase),
+          ElevatedButton(
+            onPressed: () {
+              appState.getNext();
+            },
+            child: Text('Next'),
+          ),
         ],
       ),
     );
